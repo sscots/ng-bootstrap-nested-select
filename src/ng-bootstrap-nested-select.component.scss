@@ -1,0 +1,45 @@
+.nested-select {
+    border: none;
+    padding: 0;
+    margin: 0;
+    height: 100%;
+    width: 100%;
+
+    .dropdown-toggle::after {
+        float: right;
+        position: relative;
+        top: 40%;
+    }
+    .dropdown-menu {
+        width: 100%;
+    }
+    .dropdown-toggle {
+        height: 100%;
+        width: 100%;
+        cursor: pointer;
+    }
+    .option {
+        padding: 0 .6rem;
+        font-style: italic;
+    }
+
+    .parent {
+        padding: 0 .6rem;
+        font-weight: bold;
+        font-style: normal;
+    }
+    .index-1 {
+        padding: 0 1.2rem;
+    }
+    .index-2 {
+        padding: 0 1.8rem;
+    }
+    .index-3 {
+        padding: 0 2.4rem;
+    }
+    .dropdown-item {
+        color: #000;
+        cursor: pointer;
+        font-style: normal;
+    }
+}

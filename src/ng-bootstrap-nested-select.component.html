@@ -1,0 +1,22 @@
+<ng-template #optionTemplate let-options="options" let-i="index">
+    <ng-template ngFor [ngForOf]="options" let-opt>
+        <div class="index-{{i}} option" (click)="selectOption($event, opt)" [ngClass]="{'dropdown-item': !opt.products.length}">{{opt.name}}</div>
+        <ng-template [ngIf]="opt.products.length">
+            <ng-container [ngTemplateOutlet]="optionTemplate" [ngOutletContext]="{options: opt.products, index: (i+1)}"></ng-container>
+        </ng-template>
+    </ng-template>
+</ng-template>
+
+<div ngbDropdown class="nested-select">
+    <div ngbDropdownToggle id="dropdownMenuButton">
+        {{_selected.name}}
+    </div>
+    <div ngbDropdownMenu aria-labelledby="dropdownMenuButton">
+        <ng-template ngFor [ngForOf]="items" let-item let-i="index">
+            <div class="parent option" (click)="selectOption($event)">{{item.name}}</div>
+            <ng-template [ngIf]="item.products.length">
+                <ng-container [ngTemplateOutlet]="optionTemplate" [ngOutletContext]="{options: item.products, index: level}"></ng-container>
+            </ng-template>
+        </ng-template>
+    </div>
+</div>

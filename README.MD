@@ -41,13 +41,35 @@ import { NgBootstrapNestedSelectModule } from 'ng-bootstrap-nested-select';
 export class AppModule { }
 ```
 
-Once your library is imported, you can use its components, directives and pipes in your Angular application:
+### Inputs
+| Option        | Type           | Description
+| ------------- |:-------------:| ---------|
+| options     | array |  An array of object where each must have a "name" and "options" fields
+| default      | object  | The default object to show, from the "options" list
+### Outputs
+| Option        | Type           | Description
+| ------------- |:-------------:| ---------|
+| selected     | object |  Passes back selected object
+### Settings [settings] options
+| Option        | Type           | Default  | Description
+| ------------- |:-------------:| :-----:| ---------|
+| field      | string | 'options' | The name of the field that you want to iterate over
+| top      | boolean      |   false | Display select options above input field
+| scroll | boolean      |    true | Use min-height and overflow-y scroll css to limit height of select box
 
-```xml
-<!-- You can now use your library component in app.component.html -->
-<nested-select [items]="list" (selected)="onSelect($event)" ></nested-select>
+```html
+<!--
+list = [
+    { name: 'Parent Item', options: [
+        { name: 'Child Item', options [
+            ...
+        ]}
+    ]}
+];
+-->
+<nested-select [items]="list" [default]="list[0][0]" [settings]="{field: 'options', top: false, scroll: true}" (selected)="onSelect($event)" ></nested-select>
 ```
 
 ## License
 
-MIT © [Scot Schroeder](mailto:scotschroeder@gmail.com)
+MIT © [Scot Schroeder](mailto:scot@joebotweb.com)

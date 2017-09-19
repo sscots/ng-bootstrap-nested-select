@@ -1,9 +1,9 @@
 <ng-template #optionTemplate let-options="options" let-i="index">
     <ng-template ngFor [ngForOf]="options" let-opt>
-        <div class="index-{{i}} option" (click)="selectOption($event, opt)" [ngClass]="{'dropdown-item': !opt.products.length}">{{opt.name}}</div>
-        <ng-template [ngIf]="opt.products.length">
-            <ng-container [ngTemplateOutlet]="optionTemplate" [ngOutletContext]="{options: opt.products, index: (i+1)}"></ng-container>
-        </ng-template>
+        <div class="index-{{i}} option" (click)="selectOption($event, opt)" [ngClass]="{'dropdown-item': !opt[settings.field].length}">{{opt.name}}</div>
+        <div class="option-container" *ngIf="opt[settings.field].length">
+            <ng-container [ngTemplateOutlet]="optionTemplate" [ngOutletContext]="{options: opt[settings.field], index: (i+1)}"></ng-container>
+        </div>
     </ng-template>
 </ng-template>
 
@@ -11,12 +11,12 @@
     <div ngbDropdownToggle id="dropdownMenuButton">
         {{_selected.name}}
     </div>
-    <div ngbDropdownMenu aria-labelledby="dropdownMenuButton">
-        <ng-template ngFor [ngForOf]="items" let-item let-i="index">
-            <div class="parent option" (click)="selectOption($event)">{{item.name}}</div>
-            <ng-template [ngIf]="item.products.length">
-                <ng-container [ngTemplateOutlet]="optionTemplate" [ngOutletContext]="{options: item.products, index: level}"></ng-container>
-            </ng-template>
+    <div ngbDropdownMenu aria-labelledby="dropdownMenuButton" [ngClass]="{'scroll': settings.scroll, 'top': settings.top}">
+        <ng-template ngFor [ngForOf]="options" let-opt let-i="index">
+            <div class="index-0 option" (click)="selectOption($event)">{{opt.name}}</div>
+            <div class="option-container" *ngIf="opt[settings.field].length">
+                <ng-container [ngTemplateOutlet]="optionTemplate" [ngOutletContext]="{options: opt[settings.field], index: level}"></ng-container>
+            </div>
         </ng-template>
     </div>
 </div>

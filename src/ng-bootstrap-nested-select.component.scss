@@ -4,6 +4,7 @@
     margin: 0;
     height: 100%;
     width: 100%;
+    position: relative;
 
     .dropdown-toggle::after {
         float: right;
@@ -13,33 +14,38 @@
     .dropdown-menu {
         width: 100%;
     }
+    .dropdown-menu.scroll {
+        overflow-y: scroll;
+        max-height: 300px;
+    }
+    .dropdown-menu.top {
+        top: -300px !important;
+    }
+    dropdown-menu.show {
+        left: 0;
+    }
     .dropdown-toggle {
         height: 100%;
         width: 100%;
         cursor: pointer;
     }
     .option {
-        padding: 0 .6rem;
+        padding: 0 .5rem;
         font-style: italic;
     }
 
-    .parent {
-        padding: 0 .6rem;
+    .index-0 {
+        padding: 0 .5rem;
         font-weight: bold;
         font-style: normal;
-    }
-    .index-1 {
-        padding: 0 1.2rem;
-    }
-    .index-2 {
-        padding: 0 1.8rem;
-    }
-    .index-3 {
-        padding: 0 2.4rem;
     }
     .dropdown-item {
         color: #000;
         cursor: pointer;
         font-style: normal;
+    }
+    .option-container {
+        border-left: 1px solid #EEE;
+        margin-left: .8rem;
     }
 }

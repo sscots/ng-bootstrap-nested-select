@@ -180,7 +180,6 @@ export class NgBootstrapNestedSelectComponent implements OnInit {
    * @returns {boolean}
    */
   hasOptions() {
-    console.log(this.settings);
     return this._options.filter((op) => {
       if(op[this.settings.label] && op[this.settings.label] !== '') return true;
     }).length > 0;

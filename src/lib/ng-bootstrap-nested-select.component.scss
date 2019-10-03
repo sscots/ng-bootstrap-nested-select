@@ -109,8 +109,3 @@ input {
     min-width: 500px;
   }
 }
-@media (max-width: 575px) {
-  :host {
-    height: auto !important;
-  }
-}

@@ -1,0 +1,124 @@
+<ng-template #optionTemplate let-options="options" let-i="index">
+  <ng-template ngFor [ngForOf]="options" let-opt>
+    <div class="index-{{i}} option"
+         [ngClass]="{
+               'dropdown-item': (!opt[settings.field] || !opt[settings.field].length || settings.selectAll || settings.collapsed),
+               'text-primary': opt == _selected
+             }"
+         (click)="selectOption($event, opt)">
+						<div *ngIf="opt[settings.field] && opt[settings.field].length && settings.collapsed"
+                  class="fa mr-2 toggle-icon"
+                  [ngClass]="{
+                    'arrow-right': !opt.selected && !settings.selectAll,
+                    'arrow-down': opt.selected && !settings.selectAll,
+                    'click-arrow-right': !opt.selected,
+                    'click-arrow-down': opt.selected,
+                    'click-arrow': settings.selectAll
+                  }"
+                  (click)="selectOption($event, opt, true)">
+            </div>
+      <span [innerHTML]="opt[settings.label]" class="option-label"></span>
+    </div>
+    <div class="option-container" *ngIf="opt[settings.field] && opt[settings.field].length && (!settings.collapsed || opt.selected)">
+      <ng-container
+        [ngTemplateOutlet]="optionTemplate"
+        [ngTemplateOutletContext]="{options: opt[settings.field], index: (i+1)}">
+      </ng-container>
+    </div>
+  </ng-template>
+</ng-template>
+<div *ngIf="_disabled && settings.popoverTitle"
+     class="filter-read"
+     [innerHTML]="_selected[settings.label]"
+     placement="top"
+     popoverTitle={{settings.popoverTitle}}
+     #p="ngbPopover"
+     [ngbPopover]="productName"
+     triggers="mouseenter:mouseleave">
+</div>
+<div *ngIf="!_disabled"
+     ngbDropdown
+     class="nested-select"
+     #nestedDrop="ngbDropdown"
+     (openChange)="resetSelected(_options)">
+  <ng-template [ngIf]="!settings.strict">
+    <input *ngIf="settings.filter && filterOn"
+           ngbDropdownToggle
+           type="text"
+           name="filterInput"
+           id="filterInput"
+           [(ngModel)]="_searchTerm"
+           (ngModelChange)="filterOptions()"
+           #filterInput (click)="filterOptions()"
+           (focusout)="hideFilter()"
+           autocomplete="off" />
+
+    <input *ngIf="!settings.filter"
+           ngbDropdownToggle
+           [type]="(settings.numberInput ? 'number' : 'text')"
+           name="typedInput"
+           id="typedInput"
+           [(ngModel)]="_selected[settings.label]"
+           #typedInput
+           (ngModelChange)="selectOption($event)"
+           autocomplete="off" />
+
+    <div *ngIf="settings.filter && !filterOn"
+         ngbDropdownToggle
+         class="filter-read"
+         [innerHTML]="_selected[settings.label]"
+         (click)="showFilter();">
+    </div>
+  </ng-template>
+  <div *ngIf="settings.strict"
+       ngbDropdownToggle
+       class="filter-read"
+       [innerHTML]="_selected[settings.label]">
+  </div>
+
+  <div ngbDropdownMenu
+       aria-labelledby="dropdownMenuButton"
+       [ngClass]="{
+            'scroll': settings.scroll,
+            'top': settings.top
+          }">
+
+    <div *ngIf="hasOptions() && settings.clear && settings.actions != 'buttons'"
+         class="option text-secondary dropdown-item clear"
+         (click)="selectOption(null)">
+      {{settings.clear}}
+    </div>
+    <ng-template [ngIf]="(actions.length > 0) && settings.actions != 'buttons'">
+      <div class="option text-secondary dropdown-item"
+           *ngFor="let action of actions"
+           (click)="selectAction(action)"
+           [innerHTML]="action.label">
+      </div>
+    </ng-template>
+
+    <div class="option dropdown-item" *ngIf="settings.actions == 'buttons'">
+      <ng-template [ngIf]="(actions.length > 0)">
+        <div class="btn btn-xs btn-light float-right ml-1"
+             *ngFor="let action of actions"
+             (click)="selectAction(action)"
+             [innerHTML]="action.label">
+        </div>
+      </ng-template>
+      <div class="btn btn-xs btn-light float-right ml-1"
+           *ngIf="hasOptions() && settings.clear"
+           (click)="selectOption(null)">
+        {{settings.clear}}
+      </div>
+    </div>
+
+    <div class="option" *ngIf="!hasOptions()">{{settings.emptyText}}</div>
+    <ng-container
+      [ngTemplateOutlet]="optionTemplate"
+      [ngTemplateOutletContext]="{options: _optionsFiltered, index: 1}">
+    </ng-container>
+  </div>
+</div>
+
+<ng-template #productName>
+  <div [innerHTML]="_selected[settings.label]"></div>
+</ng-template>

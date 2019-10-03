@@ -5,47 +5,82 @@
     height: 100%;
     width: 100%;
     position: relative;
+}
+.dropdown-toggle::after {
+    position: absolute;
+    right: 0;
+    top: 40%;
+}
+.dropdown-menu {
+    width: 100%;
+}
+.dropdown-menu.scroll {
+    overflow-y: scroll;
+    max-height: 300px;
+}
+.dropdown-menu.show {
+    left: 0;
+}
+.dropdown-toggle {
+    height: 100%;
+    width: 100%;
+    cursor: pointer;
+    position: relative;
+}
+.option {
+    padding: 0 .5rem;
+    font-style: italic;
+}
+.dropdown-item {
+    color: #000;
+    cursor: pointer;
+    font-style: normal;
+}
+.option-container {
+    border-left: 1px solid #CCC;
+    margin-left: .8rem;
+}
+input {
+    border: none;
+}
+.clear {
+    font-style: italic;
+    color: #AAA !important;
+}
+.filter-read {
+    overflow: hidden;
+    padding-right: 4px;
+    text-overflow: ellipsis;
+}
+.option:hover {
+    .option-label {
+        color: var(--primary);
+    }
+    .toggle-icon {
+        color: initial;
+    }
+}
+.toggle-icon:hover {
+    color: var(--primary) !important;
+}
+:host {
+    text-align: left;
 
-    .dropdown-toggle::after {
-        float: right;
-        position: relative;
-        top: 40%;
+    .disabled {
+        background-color: #e9ecef;
+        cursor: not-allowed;
+    }
+}
+@media (min-width: 576px) {
+    .filter-read {
+        white-space: nowrap;
     }
     .dropdown-menu {
-        width: 100%;
+        min-width: 500px;
     }
-    .dropdown-menu.scroll {
-        overflow-y: scroll;
-        max-height: 300px;
-    }
-    .dropdown-menu.top {
-        top: -300px !important;
-    }
-    dropdown-menu.show {
-        left: 0;
-    }
-    .dropdown-toggle {
-        height: 100%;
-        width: 100%;
-        cursor: pointer;
-    }
-    .option {
-        padding: 0 .5rem;
-        font-style: italic;
-    }
-
-    .index-0 {
-        padding: 0 .5rem;
-        font-weight: bold;
-        font-style: normal;
-    }
-    .dropdown-item {
-        color: #000;
-        cursor: pointer;
-        font-style: normal;
-    }
-    .option-container {
-        border-left: 1px solid #EEE;
-        margin-left: .8rem;
+}
+@media (max-width: 575px) {
+    :host {
+        height: auto !important;
     }
 }

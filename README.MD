@@ -1,5 +1,7 @@
 # ng-bootstrap-nested-select
 
+[VIEW DEMO](https://codesandbox.io/s/angular-fslxt)
+
 ## Installation
 
 To install this library, run:
